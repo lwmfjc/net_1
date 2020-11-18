@@ -18,13 +18,15 @@ public class MainLy {
             Socket accept = serverSocket.accept(); //一旦有人访问则返回该对象
 
             InputStream inputStream = accept.getInputStream();
-            try (Scanner in = new Scanner(inputStream, String.valueOf(StandardCharsets.UTF_8))) {
+            //去掉Scanner获取会导致cmd telnet收不到输出(猜测是因为太快?
+            // 因为SocketClient.class客户端可以收到)
+            //try (Scanner in = new Scanner(inputStream, String.valueOf(StandardCharsets.UTF_8))) {
 
                 OutputStream outputStream = accept.getOutputStream();//服务端输出流的信息会称为客户端程序的输入
                 outputStream.write("a test .".getBytes());
                 outputStream.flush();
                 outputStream.close();
-            }
+           // }
         } catch (IOException e) {
             e.printStackTrace();
         }
