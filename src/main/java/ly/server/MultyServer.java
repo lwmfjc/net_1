@@ -48,7 +48,7 @@ class MyThread implements Runnable {
                             ,true);
             System.out.println("-0000你连接上了小熊底"+this.i+"]~输出exit退出");
 
-            printWriter.println("你是第"+this.i+"个连接上了小熊底"+"输出exit退出");
+            printWriter.println("你是第"+this.i+"个连接上了小熊底"+"输入exit退出");
             String s;
             boolean done = false;
             while (!done&&in.hasNextLine()) {
