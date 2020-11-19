@@ -1,4 +1,4 @@
-package ly;
+package ly.server;
 
 import java.io.IOException;
 import java.io.InputStream;
