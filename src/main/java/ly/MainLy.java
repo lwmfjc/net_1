@@ -20,13 +20,23 @@ public class MainLy {
             InputStream inputStream = accept.getInputStream();
             //去掉Scanner获取会导致cmd telnet收不到输出(猜测是因为太快?
             // 因为SocketClient.class客户端可以收到)
-            //try (Scanner in = new Scanner(inputStream, String.valueOf(StandardCharsets.UTF_8))) {
+            try (Scanner in = new Scanner(inputStream, String.valueOf(StandardCharsets.UTF_8))) {
 
                 OutputStream outputStream = accept.getOutputStream();//服务端输出流的信息会称为客户端程序的输入
-                outputStream.write("a test .".getBytes());
+                boolean done=false;
+                outputStream.write(("----pleaseSaySomething-----\n").getBytes());
                 outputStream.flush();
+                while(!done&&in.hasNextLine()){
+                    String s=in.nextLine();
+                    if("bye".equals(s)){
+                        done=true;
+                    }else {
+                        outputStream.write(("a test ["+s+"]").getBytes());
+                        outputStream.flush();
+                    }
+                }
                 outputStream.close();
-           // }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
