@@ -12,6 +12,8 @@ import java.net.Socket;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SocketClient {
@@ -33,11 +35,18 @@ public class SocketClient {
             int read = inputStream.read();
             if(read!=-1){
                 int available = inputStream.available();
-                byte[] bytes=new byte[available+1];
-                // TODO: 2020/11/19  漏了一个字符
-                 inputStream.read(bytes);
-                 String s=new String(bytes,"GBK");
-                 System.out.println(s);
+                byte[] bytes2=new byte[1];
+                if(available>0) {
+                    byte[] bytes= new byte[available];
+                    inputStream.read(bytes);
+                    bytes2 = new byte[available + 1];
+                    for (int n = 0; n < available; n++) {
+                        bytes2[n + 1] = bytes[n];
+                    }
+                }
+                bytes2[0] = (byte) read;
+                String s = new String(bytes2, "GBK");
+                System.out.println(s);
             }
 
 
