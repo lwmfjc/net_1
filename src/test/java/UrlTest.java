@@ -15,6 +15,8 @@ public class UrlTest {
             //urlConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             OutputStream outputStream = urlConnection.getOutputStream();
             //要发送文本消息，使用PrintWriter
+            //输出流：程序向外部输入数据
+            //输入流：程序从外部获取得到输入
             try(PrintWriter out=new PrintWriter(
                     outputStream
             )) {
