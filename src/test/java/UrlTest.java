@@ -15,24 +15,32 @@ public class UrlTest {
             //urlConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             OutputStream outputStream = urlConnection.getOutputStream();
             //要发送文本消息，使用PrintWriter
-            PrintWriter printWriter=new PrintWriter(
+            try(PrintWriter out=new PrintWriter(
                     outputStream
-            );
-            String key1="masterId";
-            String key2="filterType";
-            String key3="distinctFlag";
-            printWriter.print(key1+"="+ URLEncoder.encode("bdaab2be717c42f7beed7a4b079802b8",
-                    "UTF-8")+"&");
-            printWriter.print(key2+"="+ URLEncoder.encode("1","UTF-8")+"&");
-            printWriter.print(key3+"="+ URLEncoder.encode("1","UTF-8"));
-            //outputStream.close();
-            InputStream inputStream = urlConnection.getInputStream();
-            Scanner scanner=new Scanner(inputStream,"UTF-8");
-            StringBuilder sb=new StringBuilder();
-            while (scanner.hasNextLine()){
-                sb.append(scanner.nextLine());
+            )) {
+                String key1 = "masterId";
+                String key2 = "filterType";
+                String key3 = "distinctFlag";
+                out.print(key1 + "=" + URLEncoder.encode("bdaab2be717c42f7beed7a4b079802b8",
+                        "UTF-8") + "&");
+                out.print(key2 + "=" + URLEncoder.encode("1", "UTF-8") + "&");
+                out.print(key3 + "=" + URLEncoder.encode("1", "UTF-8"));
+                // TODO: 2020/11/20 这里不知道出的什么问题,参数无法成功传给后台
+                //outputStream.close();
+                out.close(); //这里如果没有关闭，则参数不会发送过来
+                InputStream inputStream = urlConnection.getInputStream();
+                try {
+                    Scanner scanner = new Scanner(inputStream, "UTF-8");
+                    StringBuilder sb = new StringBuilder();
+                    while (scanner.hasNextLine()) {
+                        sb.append(scanner.nextLine());
+                    }
+                    System.out.println(sb);
+                }catch (Exception e){
+
+                }
             }
-            System.out.println(sb);
+
         } catch ( Exception e) {
             e.printStackTrace();
         }
