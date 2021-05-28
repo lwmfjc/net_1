@@ -22,7 +22,7 @@ public class MainLy {
             // 因为SocketClient.class客户端可以收到)
             try (Scanner in = new Scanner(inputStream, String.valueOf(StandardCharsets.UTF_8))) {
 
-                OutputStream outputStream = accept.getOutputStream();//服务端输出流的信息会称为客户端程序的输入
+                OutputStream outputStream = accept.getOutputStream();//服务端输出流的信息会成为客户端程序的输入
                 boolean done=false;
                 outputStream.write(("----pleaseSaySomething-----\n").getBytes());
                 outputStream.flush();
